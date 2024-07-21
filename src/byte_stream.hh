@@ -7,6 +7,8 @@
 class Reader;
 class Writer;
 
+const int32_t BUFFER_SIZE = 1<<28;
+
 class ByteStream
 {
 public:
@@ -24,6 +26,10 @@ public:
 protected:
   // Please add any additional state to the ByteStream here, and not to the Writer and Reader interfaces.
   uint64_t capacity_;
+  bool closed=false;
+  uint64_t head=0;
+  uint64_t tail=0;
+  string buffer=string(BUFFER_SIZE,' ');
   bool error_ {};
 };
 
