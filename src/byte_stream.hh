@@ -29,7 +29,7 @@ protected:
   bool closed=false;
   uint64_t head=0;
   uint64_t tail=0;
-  std::string buffer=string(BUFFER_SIZE,' ');
+  std::string buffer=std::string(BUFFER_SIZE,' ');
   bool error_ {};
 };
 
