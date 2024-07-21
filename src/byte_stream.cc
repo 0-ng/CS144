@@ -2,7 +2,9 @@
 
 using namespace std;
 
-ByteStream::ByteStream( uint64_t capacity ) : capacity_( capacity ) {}
+ByteStream::ByteStream( uint64_t capacity ) : capacity_( capacity ) {
+  buffer=string(capacity,' ');
+}
 
 bool Writer::is_closed() const
 {
@@ -13,10 +15,10 @@ void Writer::push( string data )
 {
   int len=data.size();
   for(int i=0;i<len;i++){
-    if(head>=tail+BUFFER_SIZE){
+    if(head>=tail+capacity_){
       break;
     }
-    buffer[head%BUFFER_SIZE]=data[i];
+    buffer[head%capacity_]=data[i];
     head+=1;
   }
 }
@@ -28,12 +30,12 @@ void Writer::close()
 
 uint64_t Writer::available_capacity() const
 {
-  return BUFFER_SIZE-(head-tail);
+  return capacity_-(head-tail);
 }
 
 uint64_t Writer::bytes_pushed() const
 {
-  return head%BUFFER_SIZE;
+  return head%capacity_;
 }
 
 bool Reader::is_finished() const
@@ -44,7 +46,7 @@ bool Reader::is_finished() const
 
 uint64_t Reader::bytes_popped() const
 {
-  return tail%BUFFER_SIZE;
+  return tail%capacity_;
 }
 
 string_view Reader::peek() const

@@ -7,7 +7,7 @@
 class Reader;
 class Writer;
 
-const int32_t BUFFER_SIZE = 1<<10;
+// const int32_t BUFFER_SIZE = 1<<10;
 
 class ByteStream
 {
@@ -29,7 +29,7 @@ protected:
   bool closed=false;
   uint64_t head=0;
   uint64_t tail=0;
-  std::string buffer=std::string(BUFFER_SIZE,' ');
+  std::string buffer;
   bool error_ {};
 };
 
