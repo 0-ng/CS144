@@ -7,7 +7,7 @@
 class Reader;
 class Writer;
 
-const int32_t BUFFER_SIZE = 1<<28;
+const int32_t BUFFER_SIZE = 1<<10;
 
 class ByteStream
 {
