@@ -5,7 +5,9 @@ using namespace std;
 void Reassembler::insert( uint64_t first_index, string data, bool is_last_substring )
 {
   int data_len=data.size();
-  if(data_len==0){
+  int l=max(first_index,writer().bytes_pushed());
+  int r=min(first_index+data_len,writer().bytes_pushed()+writer().available_capacity());  
+  if(l>=r){
     if(is_last_substring){
       tail=first_index+data_len;
     }
@@ -14,18 +16,20 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
     }
     return;
   }
-  int l=0,r=data_len;
-  int f=first_index;
-  if(first_index<head){
-    l=head-first_index;
-    f=head;
-  }
-  if(first_index+data_len>=head+capacity_){
-    r=head+capacity_-first_index;
-  }
+  // int l=0,r=data_len;
+  // int f=first_index;
+  // if(first_index<head){
+  //   l=head-first_index;
+  //   f=head;
+  // }
+  // if(first_index+data_len>=head+capacity_){
+  //   r=head+capacity_-first_index;
+  // }
   for(int i=l;i<r;i++){
-    buffer[(f+i-l)%capacity_]=data[i];
-    buffer_ready[(f+i-l)%capacity_]=true;
+    // buffer[(f+i-l)%capacity_]=data[i];
+    // buffer_ready[(f+i-l)%capacity_]=true;
+    buffer[i%capacity_]=data[i-first_index];
+    buffer_ready[i%capacity_]=true;
   }
   while(buffer_ready[head%capacity_]&&output_.writer().available_capacity()){
     output_.writer().push(string(1,buffer[head%capacity_]));
