@@ -9,10 +9,10 @@ class Reassembler
 public:
   // Construct Reassembler to write into given ByteStream.
   explicit Reassembler( ByteStream&& output ):
-  output_(std::move( output )),
-  capacity_(output_.get_capacity()),
-  buffer(std::string(output_.get_capacity(),' ')),
-  buffer_ready(std::vector<bool>(capacity_,false))
+  capacity_(output.get_capacity()),
+  buffer(std::string(capacity_,' ')),
+  buffer_ready(std::vector<bool>(capacity_,false)),
+  output_(std::move( output ))
    {
   }
 
