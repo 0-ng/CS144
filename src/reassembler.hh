@@ -1,12 +1,18 @@
 #pragma once
 
 #include "byte_stream.hh"
+#include <string>
+#include <vector>
 
 class Reassembler
 {
 public:
   // Construct Reassembler to write into given ByteStream.
-  explicit Reassembler( ByteStream&& output ) : output_( std::move( output ) ) {}
+  explicit Reassembler( ByteStream&& output ) : output_( std::move( output ) ) {
+    capacity_=output_.get_capacity();
+    buffer=std::string(capacity_,' ');
+    buffer_ready=std::vector<bool>(capacity_,false);
+  }
 
   /*
    * Insert a new substring to be reassembled into a ByteStream.
@@ -41,5 +47,11 @@ public:
   const Writer& writer() const { return output_.writer(); }
 
 private:
+  uint64_t len;
+  uint64_t capacity_;
+  uint64_t head=0;
+  uint64_t tail=0;
+  std::string buffer;
+  std::vector<bool>buffer_ready;
   ByteStream output_; // the Reassembler writes to this ByteStream
 };
