@@ -55,7 +55,7 @@ string_view Reader::peek() const
   if(head>=tail)return "";
   cout<<"TTTTTTTTT"<<head<<" "<<tail<<" "<<buffer<<" "<<capacity_<<"\n";
   cout.flush();
-  return buffer.substr(head%capacity_, 1);;
+  return string_view(buffer).substr(head%capacity_, 1);;
 }
 
 void Reader::pop( uint64_t len )
