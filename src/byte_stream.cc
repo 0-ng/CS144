@@ -54,6 +54,7 @@ string_view Reader::peek() const
 {
   if(head>=tail)return "";
   cout<<head<<" "<<tail<<" "<<buffer<<"\n";
+  cout.flush();
   string_view sub_str_view = buffer.substr(head%capacity_, 1);
   return sub_str_view;
 }
