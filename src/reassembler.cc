@@ -1,5 +1,5 @@
 #include "reassembler.hh"
-
+#include<iostream>
 using namespace std;
 
 void Reassembler::insert( uint64_t first_index, string data, bool is_last_substring )
@@ -23,10 +23,11 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
     buffer_ready[head%capacity_]=false;
     head++;
   }
-  // if(is_last_substring&&head==(uint64_t)(first_index+data_len)){
-  //   output_.writer().close();
-  // }
-  if(is_last_substring){
+  cout<<"*****************************"<<"\n";
+  cout<<"************"<<is_last_substring<<" "<<head<<" "<<first_index<<" "<<data_len<<"*****************"<<"\n";
+  cout<<"*****************************"<<"\n";
+  cout.flush();
+  if(is_last_substring&&head==(uint64_t)(first_index+data_len)){
     output_.writer().close();
   }
 }
