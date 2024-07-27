@@ -18,13 +18,13 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
     buffer[(f+i-l)%capacity_]=data[i];
     buffer_ready[(f+i-l)%capacity_]=true;
   }
-  if(is_last_substring&&r==data_len){
-    output_.writer().close();
-  }
   while(buffer_ready[head%capacity_]&&output_.writer().available_capacity()){
     output_.writer().push(string(1,buffer[head%capacity_]));
     buffer_ready[head%capacity_]=false;
     head++;
+  }
+  if(is_last_substring&&head==f+data_len){
+    output_.writer().close();
   }
 }
 
