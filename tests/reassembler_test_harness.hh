@@ -33,8 +33,8 @@ public:
                    "capacity=" + std::to_string( capacity ),
                    { Reassembler { ByteStream { capacity } } } )
   {
-    std::cout<<"begin new"<<"\n";
-    std::cout.flush();
+    // std::cout<<"begin new"<<"\n";
+    // std::cout.flush();
   }
 
   template<std::derived_from<TestStep<ByteStream>> T>
