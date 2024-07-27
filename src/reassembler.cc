@@ -5,7 +5,15 @@ using namespace std;
 void Reassembler::insert( uint64_t first_index, string data, bool is_last_substring )
 {
   int data_len=data.size();
-  if(data_len==0)return;
+  if(data_len==0){
+    if(is_last_substring){
+      tail=first_index+data_len;
+    }
+    if(head==tail){
+      output_.writer().close();
+    }
+    return;
+  }
   int l=0,r=data_len;
   int f=first_index;
   if(first_index<head){
