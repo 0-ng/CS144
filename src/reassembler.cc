@@ -24,7 +24,7 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
     head++;
   }
   if(is_last_substring&&head==(uint64_t)(first_index+data_len)){
-    output_.writer().close();
+    output_.reader().close();
   }
 }
 
