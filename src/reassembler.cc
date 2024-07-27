@@ -34,5 +34,5 @@ uint64_t Reassembler::bytes_pending() const
   for(uint64_t i=0;i<capacity_;i++){
     if(buffer_ready[(head+i)%capacity_])return i;
   }
-  return capacity_;
+  return 0;
 }
