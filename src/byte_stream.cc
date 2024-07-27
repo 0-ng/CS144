@@ -15,11 +15,11 @@ void Writer::push( string data )
 {
   int len=data.size();
   for(int i=0;i<len;i++){
-    if(head>=tail+capacity_){
+    if(tail>=head+capacity_){
       break;
     }
-    buffer[head%capacity_]=data[i];
-    head+=1;
+    buffer[tail%capacity_]=data[i];
+    tail+=1;
   }
 }
 
@@ -30,12 +30,12 @@ void Writer::close()
 
 uint64_t Writer::available_capacity() const
 {
-  return capacity_-(head-tail);
+  return capacity_-(tail-head);
 }
 
 uint64_t Writer::bytes_pushed() const
 {
-  return head;
+  return tail;
 }
 
 bool Reader::is_finished() const
@@ -46,25 +46,25 @@ bool Reader::is_finished() const
 
 uint64_t Reader::bytes_popped() const
 {
-  return tail;
+  return head;
 }
 
 string_view Reader::peek() const
 {
-  if(tail>=head)return "";
-  return buffer.substr(tail%capacity_,1);
+  if(head>=tail)return "";
+  return buffer.substr(head%capacity_,1);
 }
 
 void Reader::pop( uint64_t len )
 {
-  if(tail+len<=head){
-    tail+=len;
+  if(head+len<=tail){
+    head+=len;
   }else{
-    tail=head;
+    head=tail;
   }
 }
 
 uint64_t Reader::bytes_buffered() const
 {
-  return head-tail;
+  return tail-head;
 }
