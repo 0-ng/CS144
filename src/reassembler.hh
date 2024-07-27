@@ -51,7 +51,7 @@ public:
 private:
   uint64_t capacity_;
   uint64_t head=0;
-  uint64_t tail=0;
+  uint64_t tail=-1;
   std::string buffer;
   std::vector<bool>buffer_ready;
   ByteStream output_; // the Reassembler writes to this ByteStream
