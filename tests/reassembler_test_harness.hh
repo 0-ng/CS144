@@ -7,6 +7,7 @@
 #include <optional>
 #include <sstream>
 #include <utility>
+#include <iostream>
 
 template<std::derived_from<TestStep<ByteStream>> T>
 struct ReassemblerTestStep : public TestStep<Reassembler>
@@ -31,7 +32,10 @@ public:
     : TestHarness( move( test_name ),
                    "capacity=" + std::to_string( capacity ),
                    { Reassembler { ByteStream { capacity } } } )
-  {}
+  {
+    cout<<"begin new"<<"\n";
+    cout.flush();
+  }
 
   template<std::derived_from<TestStep<ByteStream>> T>
   void execute( const T& test )
