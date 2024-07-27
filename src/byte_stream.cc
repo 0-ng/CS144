@@ -35,7 +35,7 @@ uint64_t Writer::available_capacity() const
 
 uint64_t Writer::bytes_pushed() const
 {
-  return head%capacity_;
+  return head;
 }
 
 bool Reader::is_finished() const
@@ -46,7 +46,7 @@ bool Reader::is_finished() const
 
 uint64_t Reader::bytes_popped() const
 {
-  return tail%capacity_;
+  return tail;
 }
 
 string_view Reader::peek() const
