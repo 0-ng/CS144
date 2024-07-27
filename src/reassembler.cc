@@ -21,7 +21,7 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
   if(is_last_substring&&r==data_len){
     output_.writer().close();
   }
-  for(buffer_ready[head%capacity_]){
+  while(buffer_ready[head%capacity_]){
     output_.writer().push(buffer[head%capacity_]);
     buffer_ready[head%capacity_]=false;
     head++;
