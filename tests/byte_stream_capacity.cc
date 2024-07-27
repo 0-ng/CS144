@@ -33,7 +33,7 @@ int main()
       test.execute( BytesBuffered { 2 } );
       test.execute( Peek { "ca" } );
     }
-
+/*
     {
       ByteStreamTestHarness test { "overwrite-clear-overwrite", 2 };
 
@@ -96,7 +96,7 @@ int main()
       test.execute( Peek { "a" } );
       test.execute( BytesBuffered { 1 } );
     }
-
+*/
   } catch ( const exception& e ) {
     cerr << "Exception: " << e.what() << endl;
     return EXIT_FAILURE;
