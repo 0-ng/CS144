@@ -2,8 +2,8 @@
 
 using namespace std;
 
-ByteStream::ByteStream( uint64_t capacity ) : capacity_( capacity ) {
-  buffer=string(capacity,' ');
+ByteStream::ByteStream( uint64_t capacity ) : capacity_( capacity ),buffer(string(capacity,' ')) {
+  
 }
 
 bool Writer::is_closed() const
