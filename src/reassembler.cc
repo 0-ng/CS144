@@ -46,9 +46,9 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
 
 uint64_t Reassembler::bytes_pending() const
 {
-  // Your code here.
+  uint64_t ret=0;
   for(uint64_t i=0;i<capacity_;i++){
-    if(buffer_ready[(head+i)%capacity_])return i;
+    if(buffer_ready[(head+i)%capacity_])ret++;
   }
-  return 0;
+  return ret;
 }
