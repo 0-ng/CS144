@@ -47,7 +47,7 @@ public:
   const Writer& writer() const { return output_.writer(); }
 
 private:
-  uint64_t capacity_;
+  uint64_t capacity_=0;
   uint64_t head=0;
   uint64_t tail=0;
   std::string buffer;

@@ -22,7 +22,7 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
     output_.writer().close();
   }
   while(buffer_ready[head%capacity_]&&output_.writer().available_capacity()){
-    output_.writer().push(buffer[head%capacity_]);
+    output_.writer().push(string(1,buffer[head%capacity_]));
     buffer_ready[head%capacity_]=false;
     head++;
   }
@@ -31,8 +31,8 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
 uint64_t Reassembler::bytes_pending() const
 {
   // Your code here.
-  for(int i=0;i<capacity_;i++){
-    if(vis[(head+i)%capacity_])return i;
+  for(uint64_t i=0;i<capacity_;i++){
+    if(buffer_ready[(head+i)%capacity_])return i;
   }
   return capacity_;
 }
