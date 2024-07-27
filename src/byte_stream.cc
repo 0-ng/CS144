@@ -53,10 +53,9 @@ uint64_t Reader::bytes_popped() const
 string_view Reader::peek() const
 {
   if(head>=tail)return "";
-  cout<<"TTTTTTTTT"<<head<<" "<<tail<<" "<<buffer<<"\n";
+  cout<<"TTTTTTTTT"<<head<<" "<<tail<<" "<<buffer<<" "<<capacity_<<"\n";
   cout.flush();
-  string_view sub_str_view = buffer.substr(head%capacity_, 1);
-  return sub_str_view;
+  return buffer.substr(head%capacity_, 1);;
 }
 
 void Reader::pop( uint64_t len )
