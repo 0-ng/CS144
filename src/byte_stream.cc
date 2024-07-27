@@ -40,7 +40,7 @@ uint64_t Writer::bytes_pushed() const
 
 bool Reader::is_finished() const
 {
-  return writer().closed&&(head==tail);
+  return writer().is_closed()&&(head==tail);
 }
 
 uint64_t Reader::bytes_popped() const
