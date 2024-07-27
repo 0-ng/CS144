@@ -52,7 +52,7 @@ uint64_t Reader::bytes_popped() const
 string_view Reader::peek() const
 {
   if(tail>=head)return "";
-  return buffer.substr(tail,1);
+  return buffer.substr(tail%capacity_,1);
 }
 
 void Reader::pop( uint64_t len )
