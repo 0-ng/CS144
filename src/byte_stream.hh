@@ -48,6 +48,7 @@ class Reader : public ByteStream
 public:
   std::string_view peek() const; // Peek at the next bytes in the buffer
   void pop( uint64_t len );      // Remove `len` bytes from the buffer
+  void close();                  // Signal that the stream has reached its ending. Nothing more will be written.
 
   bool is_finished() const;        // Is the stream finished (closed and fully popped)?
   uint64_t bytes_buffered() const; // Number of bytes currently buffered (pushed and not popped)

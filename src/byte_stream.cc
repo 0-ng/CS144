@@ -67,3 +67,8 @@ uint64_t Reader::bytes_buffered() const
 {
   return tail-head;
 }
+
+void Reader::close()
+{
+  closed=true;
+}
