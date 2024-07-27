@@ -40,7 +40,7 @@ uint64_t Writer::bytes_pushed() const
 
 bool Reader::is_finished() const
 {
-  return closed&&(head==tail);
+  return writer().closed&&(head==tail);
 }
 
 uint64_t Reader::bytes_popped() const
@@ -66,9 +66,4 @@ void Reader::pop( uint64_t len )
 uint64_t Reader::bytes_buffered() const
 {
   return tail-head;
-}
-
-void Reader::close()
-{
-  closed=true;
 }
