@@ -23,7 +23,7 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
     buffer_ready[head%capacity_]=false;
     head++;
   }
-  if(is_last_substring&&head==(uint64_t)(f+data_len)){
+  if(is_last_substring&&head==(uint64_t)(first_index+data_len)){
     output_.writer().close();
   }
 }
