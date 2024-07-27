@@ -27,7 +27,7 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
   cout<<"************"<<is_last_substring<<" "<<head<<" "<<first_index<<" "<<data_len<<"*****************"<<"\n";
   cout<<"*****************************"<<"\n";
   cout.flush();
-  if(is_last_substring&&head==(uint64_t)(first_index+data_len)){
+  if(is_last_substring&&bytes_pending()==0){
     output_.writer().close();
   }
 }
