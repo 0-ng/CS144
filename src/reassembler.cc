@@ -16,14 +16,14 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
   }
   for(int i=l;i<r;i++){
     buffer[(f+i-l)%capacity_]=data[i];
-    vis[(f+i-l)%capacity_]=true;
+    buffer_ready[(f+i-l)%capacity_]=true;
   }
   if(is_last_substring&&r==data_len){
     output_.writer().close();
   }
-  for(vis[head%capacity_]){
+  for(buffer_ready[head%capacity_]){
     output_.writer().push(buffer[head%capacity_]);
-    vis[head%capacity_]=false;
+    buffer_ready[head%capacity_]=false;
     head++;
   }
 }
