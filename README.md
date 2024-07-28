@@ -18,3 +18,5 @@ To run speed benchmarks: `cmake --build build --target speed`
 To run clang-tidy (which suggests improvements): `cmake --build build --target tidy`
 
 To format code: `cmake --build build --target format`
+
+echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
