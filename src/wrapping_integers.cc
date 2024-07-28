@@ -11,14 +11,13 @@ uint64_t Wrap32::unwrap( Wrap32 zero_point, uint64_t checkpoint ) const
 {
   uint64_t ret=raw_value_-zero_point.raw_value_+((checkpoint>>32)<<32);
   uint64_t t=( 1UL << 32 );
-  if(ret<checkpoint){
-    if(checkpoint-ret>ret+t-checkpoint){
-      ret+=t;
-    }
-  }else{
-    if(ret-checkpoint>checkpoint+t-ret){
-      ret-=t;
-    }
+  uint64_t b=ret+t;
+  uint64_t s=ret-t;
+  if(max(b,checkpoint)-min(b,checkpoint)<max(ret,checkpoint)-min(ret,checkpoint)){
+    ret=b;
+  }
+  if(max(s,checkpoint)-min(s,checkpoint)<max(ret,checkpoint)-min(ret,checkpoint)){
+    ret=s;
   }
   return ret;
 }
