@@ -16,7 +16,7 @@ uint64_t Wrap32::unwrap( Wrap32 zero_point, uint64_t checkpoint ) const
       ret+=t;
     }
   }else{
-    if(ret-checkpoint>checkpoint-(ret-t)){
+    if(ret-checkpoint>checkpoint+t-ret){
       ret-=t;
     }
   }
