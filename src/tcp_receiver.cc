@@ -33,6 +33,7 @@ TCPReceiverMessage TCPReceiver::send() const
   if(reader().get_capacity()<window_size){
     window_size=reader().get_capacity();
   }
+  window_size-=().bytes_buffered();
   ret.window_size=window_size;
   if(is_syn){
     ret.ackno=Wrap32::wrap(1+reassembler_.writer().is_closed()+reassembler_.fisrt_reassemble(),zero_point);
