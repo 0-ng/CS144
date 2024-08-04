@@ -30,6 +30,7 @@ private:
   uint64_t checkpoint {0};
   bool is_syn  {false};
   bool is_fin  {false};
+  bool is_rst  {false};
   // int64_t isn {};
   Reassembler reassembler_;
 };
