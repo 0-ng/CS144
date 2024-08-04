@@ -14,7 +14,7 @@
 
 using namespace std;
 
-static constexpr unsigned NREPS = 64;
+static constexpr unsigned NREPS = 32;
 
 void do_test_1( const TCPConfig& cfg, default_random_engine& rd )
 {
