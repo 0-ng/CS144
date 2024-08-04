@@ -26,5 +26,8 @@ public:
   const Writer& writer() const { return reassembler_.writer(); }
 
 private:
+  Wrap32 zero_point;
+  uint64_t checkpoint;
+  // int64_t isn {};
   Reassembler reassembler_;
 };
