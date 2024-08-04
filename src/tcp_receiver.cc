@@ -27,7 +27,7 @@ TCPReceiverMessage TCPReceiver::send() const
   return {
     // Wrap32::wrap( zero_point,reassembler_.output_.writer.bytes_pushed(), zero_point),
     Wrap32::wrap(0,zero_point),
-    10086,
+    reader().get_capacity(),
     false
   };
 }
