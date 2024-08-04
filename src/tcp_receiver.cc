@@ -17,6 +17,7 @@ void TCPReceiver::receive( TCPSenderMessage message )
   }
   uint64_t fisrt_index=message.seqno.unwrap(zero_point,reassembler_.fisrt_reassemble());
   if(!message.SYN){
+    if(fisrt_index==0)return;
     fisrt_index-=1;
   }
   // if(message.FIN){
