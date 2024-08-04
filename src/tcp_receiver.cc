@@ -1,4 +1,5 @@
 #include "tcp_receiver.hh"
+#include<stdint.h>
 
 using namespace std;
 
@@ -28,7 +29,11 @@ TCPReceiverMessage TCPReceiver::send() const
 {
   TCPReceiverMessage ret;
   ret.RST=false;
-  ret.window_size=(uint16_t)(reader().get_capacity());
+  size_t window_size=UINT16_MAX;
+  if(reader().get_capacity()<window_size){
+    window_size=reader().get_capacity();
+  }
+  ret.window_size=window_size;
   if(is_syn){
     ret.ackno=Wrap32::wrap(1+reassembler_.writer().is_closed()+reassembler_.fisrt_reassemble(),zero_point);
   }
