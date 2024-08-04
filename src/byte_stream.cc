@@ -51,7 +51,7 @@ uint64_t Reader::bytes_popped() const
 string_view Reader::peek() const
 {
   // if(head>=tail)return "";
-  int len=bytes_buffered();
+  uint64_t len=bytes_buffered();
   if(len<=0)return "";
   if(len>=capacity_-head%capacity_){
     len=capacity_-head%capacity_;
