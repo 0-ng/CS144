@@ -4,9 +4,9 @@ using namespace std;
 
 void Reassembler::insert( uint64_t first_index, string data, bool is_last_substring )
 {
-  int data_len=data.size();
-  int l=max(first_index,writer().bytes_pushed());
-  int r=min(first_index+data_len,writer().bytes_pushed()+writer().available_capacity());  
+  uint64_t data_len=data.size();
+  uint64_t l=max(first_index,writer().bytes_pushed());
+  uint64_t r=min(first_index+data_len,writer().bytes_pushed()+writer().available_capacity());  
   if(l>=r){
     if(is_last_substring){
       tail=first_index+data_len;
