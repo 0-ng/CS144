@@ -28,6 +28,7 @@ public:
 private:
   Wrap32 zero_point {0};
   uint64_t checkpoint {0};
+  bool is_receive  {false};
   // int64_t isn {};
   Reassembler reassembler_;
 };

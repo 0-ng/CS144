@@ -10,6 +10,7 @@ void TCPReceiver::receive( TCPSenderMessage message )
   // }
   // size_t data_len=message.sequence_length;
   if(message.SYN){
+    is_receive=true;
     zero_point=message.seqno;
     // data_len-=1;
   }
@@ -23,11 +24,11 @@ void TCPReceiver::receive( TCPSenderMessage message )
 
 TCPReceiverMessage TCPReceiver::send() const
 {
-  // Your code here.
-  return {
-    // Wrap32::wrap( zero_point,reassembler_.output_.writer.bytes_pushed(), zero_point),
-    Wrap32::wrap(0,zero_point),
-    (uint16_t)(reader().get_capacity()),
-    false
-  };
+  TCPReceiverMessage ret;
+  ret.RST=false;
+  ret.window_size=(uint16_t)(reader().get_capacity());
+  if(is_receive){
+    ret.ackno=Wrap32::wrap(0,zero_point);
+  }
+  return ret;
 }
