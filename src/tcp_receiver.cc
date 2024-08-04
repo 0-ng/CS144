@@ -16,15 +16,17 @@ void TCPReceiver::receive( TCPSenderMessage message )
   // if(message.FIN){
   //   data_len-=1;
   // }
-  uint64_t fisrt_index=message.seqno.unwrap(zero_point,reassembler_.output_.writer.bytes_pushed());
-  reassembler().insert(fisrt_index,message.payload,message.FIN);
+  // uint64_t fisrt_index=message.seqno.unwrap(zero_point,reassembler_.output_.writer.bytes_pushed());
+  uint64_t fisrt_index=message.seqno.unwrap(zero_point,0);
+  reassembler_.insert(fisrt_index,message.payload,message.FIN);
 }
 
 TCPReceiverMessage TCPReceiver::send() const
 {
   // Your code here.
   return {
-    Wrap32::wrap( zero_point,reassembler_.output_.writer.bytes_pushed(), zero_point),
+    // Wrap32::wrap( zero_point,reassembler_.output_.writer.bytes_pushed(), zero_point),
+    Wrap32::wrap( zero_point,0),
     10086,
     false
   };
