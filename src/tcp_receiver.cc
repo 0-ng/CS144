@@ -5,7 +5,7 @@ using namespace std;
 
 void TCPReceiver::receive( TCPSenderMessage message )
 {
-  if(is_rst){
+  if(is_rst||reader().has_error()||writer().has_error()){
     return;
   }
   if(message.RST){
@@ -33,7 +33,7 @@ TCPReceiverMessage TCPReceiver::send() const
 {
   TCPReceiverMessage ret;
   
-  ret.RST=is_rst;
+  ret.RST=is_rst||reader().has_error()||writer().has_error();
   
   size_t window_size=UINT16_MAX;
   if(reader().get_capacity()<window_size){
