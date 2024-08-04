@@ -9,12 +9,13 @@ void TCPReceiver::receive( TCPSenderMessage message )
   //   return;
   // }
   // size_t data_len=message.sequence_length;
-  uint64_t fisrt_index=message.seqno.unwrap(zero_point,reassembler_.fisrt_reassemble());
   if(message.SYN){
     is_receive=true;
     zero_point=message.seqno;
     // data_len-=1;
-  }else{
+  }
+  uint64_t fisrt_index=message.seqno.unwrap(zero_point,reassembler_.fisrt_reassemble());
+  if(!message.SYN){
     fisrt_index-=1;
   }
   // if(message.FIN){
