@@ -40,6 +40,7 @@ public:
 
   // How many bytes are stored in the Reassembler itself?
   uint64_t bytes_pending() const;
+  uint64_t fisrt_reassemble() const { return output_.writer().bytes_pushed(); }
 
   // Access output stream reader
   Reader& reader() { return output_.reader(); }

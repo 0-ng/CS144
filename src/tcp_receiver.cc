@@ -18,7 +18,7 @@ void TCPReceiver::receive( TCPSenderMessage message )
   //   data_len-=1;
   // }
   // uint64_t fisrt_index=message.seqno.unwrap(zero_point,reassembler_.output_.writer.bytes_pushed());
-  uint64_t fisrt_index=message.seqno.unwrap(zero_point,0);
+  uint64_t fisrt_index=message.seqno.unwrap(zero_point,reassembler_.fisrt_reassemble());
   reassembler_.insert(fisrt_index,message.payload,message.FIN);
 }
 
@@ -28,7 +28,7 @@ TCPReceiverMessage TCPReceiver::send() const
   ret.RST=false;
   ret.window_size=(uint16_t)(reader().get_capacity());
   if(is_receive){
-    ret.ackno=Wrap32::wrap(0,zero_point);
+    ret.ackno=Wrap32::wrap(reassembler_.fisrt_reassemble(),zero_point);
   }
   return ret;
 }
