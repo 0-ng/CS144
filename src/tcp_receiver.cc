@@ -18,7 +18,7 @@ void TCPReceiver::receive( TCPSenderMessage message )
   //   data_len-=1;
   // }
   // uint64_t fisrt_index=message.seqno.unwrap(zero_point,reassembler_.output_.writer.bytes_pushed());
-  uint64_t fisrt_index=message.seqno.unwrap(zero_point,reassembler_.fisrt_reassemble());
+  uint64_t fisrt_index=message.seqno.unwrap(zero_point,reassembler_.fisrt_reassemble())-1;
   reassembler_.insert(fisrt_index,message.payload,message.FIN);
 }
 
