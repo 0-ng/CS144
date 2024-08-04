@@ -16,7 +16,7 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
     }
     return;
   }
-  for(int i=l,now=l%capacity_;i<r;i++,now++){
+  for(uint64_t i=l,now=l%capacity_;i<r;i++,now++){
     if(now>=capacity_)now-=capacity_;
     buffer[now]=data[i-first_index];
     buffer_ready[now]=true;
