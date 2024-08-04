@@ -16,14 +16,19 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
     }
     return;
   }
-  for(int i=l;i<r;i++){
-    buffer[i%capacity_]=data[i-first_index];
-    buffer_ready[i%capacity_]=true;
+  for(int i=l,now=l%capacity_;i<r;i++,now++){
+    if(now>=capacity_)now-=capacity_;
+    buffer[now]=data[i-first_index];
+    buffer_ready[now]=true;
   }
-  while(buffer_ready[head%capacity_]&&output_.writer().available_capacity()){
-    output_.writer().push(string(1,buffer[head%capacity_]));
-    buffer_ready[head%capacity_]=false;
+
+  uint64_t now=head%capacity_;
+  while(buffer_ready[now]&&output_.writer().available_capacity()){
+    output_.writer().push(string(1,buffer[now]));
+    buffer_ready[now]=false;
     head++;
+    now++;
+    if(now>=capacity_)now-=capacity_;
   }
   if(is_last_substring){
     tail=first_index+data_len;
@@ -36,8 +41,11 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
 uint64_t Reassembler::bytes_pending() const
 {
   uint64_t ret=0;
+  uint64_t begin=head%capacity_;
   for(uint64_t i=0;i<capacity_;i++){
-    if(buffer_ready[(head+i)%capacity_])ret++;
+    if(begin>=capacity_)begin-=capacity_;
+    if(buffer_ready[begin])ret++;
+    begin+=1;
   }
   return ret;
 }
