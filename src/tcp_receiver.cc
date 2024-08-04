@@ -9,6 +9,7 @@ void TCPReceiver::receive( TCPSenderMessage message )
     return;
   }
   if(message.RST){
+    reader().set_error();
     is_rst=true;
     return;
   }
