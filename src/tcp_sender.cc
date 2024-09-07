@@ -21,14 +21,15 @@ void TCPSender::push( const TransmitFunction& transmit )
    ret.SYN=(seq==isn_);
    ret.FIN=false;
    ret.RST=false;
-   ret.seqno=seq;
    ret.payload="";
    transmit(ret);
 }
 
 TCPSenderMessage TCPSender::make_empty_message() const
 {
-  return {};
+  TCPSenderMessage ret;
+  ret.seqno=seq;
+  return ret;
 }
 
 void TCPSender::receive( const TCPReceiverMessage& msg )
