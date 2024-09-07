@@ -22,19 +22,12 @@ void TCPSender::push( const TransmitFunction& transmit )
 
 TCPSenderMessage TCPSender::make_empty_message() const
 {
-  // Your code here.
-  return {};
-  // Wrap32 seqno { 0 };
-
-  // bool SYN {};
-  // std::string payload {};
-  // bool FIN {};
-
-  // bool RST {};
-
-  // ByteStream input_;
-  // Wrap32 isn_;
-  // uint64_t initial_RTO_ms_;
+  TCPSenderMessage ret;
+  ret.FIN=false;
+  ret.RST=false;
+  ret.seqno=seq;
+  ret.SYN=(seq==isn_);
+  ret.payload="";
 }
 
 void TCPSender::receive( const TCPReceiverMessage& msg )
