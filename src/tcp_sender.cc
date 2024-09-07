@@ -17,18 +17,18 @@ uint64_t TCPSender::consecutive_retransmissions() const
 
 void TCPSender::push( const TransmitFunction& transmit )
 {
-   transmit(make_empty_message());
+   TCPSenderMessage ret=make_empty_message();
+   ret.SYN=(seq==isn_);
+   ret.FIN=false;
+   ret.RST=false;
+   ret.seqno=seq;
+   ret.payload="";
+   transmit(ret);
 }
 
 TCPSenderMessage TCPSender::make_empty_message() const
 {
-  TCPSenderMessage ret;
-  ret.FIN=false;
-  ret.RST=false;
-  ret.seqno=seq;
-  ret.SYN=(seq==isn_);
-  ret.payload="";
-  return ret;
+  return {};
 }
 
 void TCPSender::receive( const TCPReceiverMessage& msg )
