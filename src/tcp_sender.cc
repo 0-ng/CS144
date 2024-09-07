@@ -22,6 +22,7 @@ void TCPSender::push( const TransmitFunction& transmit )
    ret.FIN=false;
    ret.RST=false;
    ret.payload="";
+   seq+=ret.sequence_length();
    transmit(ret);
 }
 
