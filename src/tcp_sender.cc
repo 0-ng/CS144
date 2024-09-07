@@ -28,6 +28,7 @@ TCPSenderMessage TCPSender::make_empty_message() const
   ret.seqno=seq;
   ret.SYN=(seq==isn_);
   ret.payload="";
+  return ret;
 }
 
 void TCPSender::receive( const TCPReceiverMessage& msg )
