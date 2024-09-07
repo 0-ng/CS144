@@ -17,14 +17,24 @@ uint64_t TCPSender::consecutive_retransmissions() const
 
 void TCPSender::push( const TransmitFunction& transmit )
 {
-  // Your code here.
-  (void)transmit;
+   transmit(make_empty_message());
 }
 
 TCPSenderMessage TCPSender::make_empty_message() const
 {
   // Your code here.
   return {};
+  // Wrap32 seqno { 0 };
+
+  // bool SYN {};
+  // std::string payload {};
+  // bool FIN {};
+
+  // bool RST {};
+
+  // ByteStream input_;
+  // Wrap32 isn_;
+  // uint64_t initial_RTO_ms_;
 }
 
 void TCPSender::receive( const TCPReceiverMessage& msg )
