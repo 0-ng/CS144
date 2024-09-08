@@ -21,7 +21,7 @@ void TCPSender::push( const TransmitFunction& transmit )
    ret.FIN=false;
    ret.RST=false;
    ret.payload="";
-   seq+=(uint32_t)(ret.sequence_length());
+   seq=seq+(uint32_t)(ret.sequence_length());
    in_flight+=ret.sequence_length();
    check_point+=ret.sequence_length();
    transmit(ret);
