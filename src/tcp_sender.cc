@@ -21,7 +21,7 @@ void TCPSender::push( const TransmitFunction& transmit )
    TCPSenderMessage ret=make_empty_message();
    ret.SYN=(seq==isn_);
    ret.FIN=false;
-   string v=reader().peek();
+   string_view v=reader().peek();
   //  reader().pop(v.size());
    ret.payload=v;
    size_t seq_len=ret.sequence_length();
