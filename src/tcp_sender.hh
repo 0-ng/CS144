@@ -55,4 +55,6 @@ private:
   Wrap32 ack;
   bool rst {};
   uint16_t window_size {1};
+  uint64_t retransmissions {0};
+  uint64_t ms_last_tick {0};
 };

@@ -12,8 +12,7 @@ uint64_t TCPSender::sequence_numbers_in_flight() const
 
 uint64_t TCPSender::consecutive_retransmissions() const
 {
-  // Your code here.
-  return {};
+  return retransmissions;
 }
 
 void TCPSender::push( const TransmitFunction& transmit )
@@ -33,7 +32,8 @@ void TCPSender::push( const TransmitFunction& transmit )
     return;
    }
    transmit(ret);
-   
+   ms_last_tick=0;
+   retransmissions=0;
    seq=seq+(uint32_t)(seq_len);
    in_flight+=seq_len;
    check_point+=seq_len;
@@ -65,7 +65,9 @@ void TCPSender::receive( const TCPReceiverMessage& msg )
 void TCPSender::tick( uint64_t ms_since_last_tick, const TransmitFunction& transmit )
 {
   // Your code here.
-  (void)ms_since_last_tick;
-  (void)transmit;
-  (void)initial_RTO_ms_;
+  ms_last_tick+=ms_since_last_tick;
+  if(ms_last_tick>=initial_RTO_ms_*(consecutive_retransmissions()+1)){
+    retransmissions+=1;
+    push(transmit);
+  }
 }
