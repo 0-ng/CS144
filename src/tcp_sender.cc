@@ -5,7 +5,7 @@ using namespace std;
 
 uint64_t TCPSender::sequence_numbers_in_flight() const
 {
-  return sequence_numbers_in_flight;
+  return in_flight;
 }
 
 uint64_t TCPSender::consecutive_retransmissions() const
