@@ -20,7 +20,7 @@ void TCPSender::push( const TransmitFunction& transmit )
    ret.SYN=(seq==isn_);
    ret.FIN=false;
    string v=reader().peek();
-   reader().pop(v.size());
+  //  reader().pop(v.size());
    ret.payload=v;
    size_t seq_len=ret.sequence_length();
    if(seq_len==0){
