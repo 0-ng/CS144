@@ -20,10 +20,15 @@ void TCPSender::push( const TransmitFunction& transmit )
    ret.SYN=(seq==isn_);
    ret.FIN=false;
    ret.payload="";
-   seq=seq+(uint32_t)(ret.sequence_length());
-   in_flight+=ret.sequence_length();
-   check_point+=ret.sequence_length();
+   size_t seq_len=ret.sequence_length();
+   if(seq_len==0){
+    return;
+   }
    transmit(ret);
+   
+   seq=seq+(uint32_t)(seq_len);
+   in_flight+=seq_len;
+   check_point+=seq_len;
 }
 
 TCPSenderMessage TCPSender::make_empty_message() const
