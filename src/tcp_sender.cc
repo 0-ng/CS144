@@ -23,8 +23,8 @@ void TCPSender::push( const TransmitFunction& transmit )
    ret.FIN=false;
    string_view v=writer().reader().peek();
    uint64_t len=v.size();
-   if(ret.sequence_length()+len>window_size){
-    len=window_size-ret.sequence_length();
+   if(ret.sequence_length()+len+sequence_numbers_in_flight()>window_size){
+    len=window_size-ret.sequence_length()-sequence_numbers_in_flight();
    }
    writer().reader().pop(len);
    ret.payload=v.substr(0,len);
