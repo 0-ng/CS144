@@ -28,13 +28,13 @@ public:
   Wrap32 operator+( uint32_t n ) const { return Wrap32 { raw_value_ + n }; }
 
   uint64_t sub( const Wrap32& other, Wrap32 zero_point, uint64_t checkpoint ) const {
-    uint64_t a=unwrap(zero,checkpoint);
-    uint64_t b=other.unwrap(zero,checkpoint);
+    uint64_t a=unwrap(zero_point,checkpoint);
+    uint64_t b=other.unwrap(zero_point,checkpoint);
     return a-b;
   }
   bool bigger( const Wrap32& other, Wrap32 zero_point, uint64_t checkpoint ) const {
-    uint64_t a=unwrap(zero,checkpoint);
-    uint64_t b=other.unwrap(zero,checkpoint);
+    uint64_t a=unwrap(zero_point,checkpoint);
+    uint64_t b=other.unwrap(zero_point,checkpoint);
     return a>b;
   }
   bool operator==( const Wrap32& other ) const { return raw_value_ == other.raw_value_; }
