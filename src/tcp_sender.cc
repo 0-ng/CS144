@@ -22,9 +22,12 @@ void TCPSender::push( const TransmitFunction& transmit )
    ret.SYN=(seq==isn_);
    ret.FIN=false;
    string_view v=writer().reader().peek();
-   writer().reader().pop(v.size());
-  //  reader().pop(v.size());
-   ret.payload=v;
+   uint64_t len=v.size()
+   if(ret.sequence_length()+len>window_size){
+    len=window_size-ret.sequence_length();
+   }
+   writer().reader().pop(len);
+   ret.payload=v.substr(0,len);
    size_t seq_len=ret.sequence_length();
    if(seq_len==0){
     return;
@@ -52,6 +55,10 @@ void TCPSender::receive( const TCPReceiverMessage& msg )
     }
     in_flight-=msg.ackno.value().sub(ack,isn_,check_point);
     ack=msg.ackno.value();
+  }
+  window_size=msg.window_size;
+  if(window_size<1){
+    window_size=1;
   }
 }
 

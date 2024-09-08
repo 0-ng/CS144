@@ -54,4 +54,5 @@ private:
   Wrap32 seq;
   Wrap32 ack;
   bool rst {};
+  uint16 window_size {1};
 };
