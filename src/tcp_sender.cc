@@ -36,7 +36,7 @@ TCPSenderMessage TCPSender::make_empty_message() const
 
 void TCPSender::receive( const TCPReceiverMessage& msg )
 {
-  if(msg.ackno.has_value){
+  if(msg.ackno.has_value()){
     if(!msg.ackno.value().bigger(ack,isn_,check_point)){
       return;
     }
