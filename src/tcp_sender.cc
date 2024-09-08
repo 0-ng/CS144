@@ -1,6 +1,8 @@
 #include "tcp_sender.hh"
 #include "tcp_config.hh"
-#include<string>
+#include <cstdint>
+#include <string>
+#include <string_view>
 using namespace std;
 
 uint64_t TCPSender::sequence_numbers_in_flight() const
