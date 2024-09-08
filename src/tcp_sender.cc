@@ -5,8 +5,7 @@ using namespace std;
 
 uint64_t TCPSender::sequence_numbers_in_flight() const
 {
-  // Your code here.
-  return {};
+  return sequence_numbers_in_flight;
 }
 
 uint64_t TCPSender::consecutive_retransmissions() const
@@ -22,7 +21,8 @@ void TCPSender::push( const TransmitFunction& transmit )
    ret.FIN=false;
    ret.RST=false;
    ret.payload="";
-   seq+=ret.sequence_length();
+   sequence_numbers_in_flight+=ret.sequence_length();
+   check_point+=ret.sequence_length();
    transmit(ret);
 }
 
@@ -30,13 +30,19 @@ TCPSenderMessage TCPSender::make_empty_message() const
 {
   TCPSenderMessage ret;
   ret.seqno=seq;
+  ret.RST=rst;
   return ret;
 }
 
 void TCPSender::receive( const TCPReceiverMessage& msg )
 {
-  // Your code here.
-  (void)msg;
+  if(msg.ackno.has_value){
+    if(!msg.ackno.value().bigger(ack,isn_,check_point)){
+      return;
+    }
+    sequence_numbers_in_flight-=msg.ackno.value().sub(ack,isn_,check_point);
+    ack=msg.ackno.value();
+  }
 }
 
 void TCPSender::tick( uint64_t ms_since_last_tick, const TransmitFunction& transmit )
