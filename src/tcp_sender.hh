@@ -49,7 +49,7 @@ private:
   Wrap32 isn_;
   uint64_t initial_RTO_ms_;
 
-  uint64_t sequence_numbers_in_flight;
+  uint64_t in_flight;
   uint64_t check_point {};
   Wrap32 seq;
   Wrap32 ack;

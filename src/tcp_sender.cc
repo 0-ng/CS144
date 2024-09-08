@@ -21,7 +21,7 @@ void TCPSender::push( const TransmitFunction& transmit )
    ret.FIN=false;
    ret.RST=false;
    ret.payload="";
-   sequence_numbers_in_flight+=ret.sequence_length();
+   in_flight+=ret.sequence_length();
    check_point+=ret.sequence_length();
    transmit(ret);
 }
@@ -40,7 +40,7 @@ void TCPSender::receive( const TCPReceiverMessage& msg )
     if(!msg.ackno.value().bigger(ack,isn_,check_point)){
       return;
     }
-    sequence_numbers_in_flight-=msg.ackno.value().sub(ack,isn_,check_point);
+    in_flight-=msg.ackno.value().sub(ack,isn_,check_point);
     ack=msg.ackno.value();
   }
 }
